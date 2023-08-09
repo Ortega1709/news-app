@@ -1,3 +1,11 @@
 <resources>
+    <string name="api_key">541642464cb846fa8bba10cd8a142302</string>
     <string name="app_name">NewsApp</string>
+    <string name="france">France</string>
+    <string name="internationel">International</string>
+    <string name="business">Business</string>
+    <string name="health">Santé</string>
+    <string name="sciences">Sciences</string>
+    <string name="sports">Sports</string>
+    <string name="technologies">Technologies</string>
 </resources>
