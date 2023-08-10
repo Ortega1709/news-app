@@ -19,7 +19,7 @@ class NewsViewModel @Inject constructor(
     var state by mutableStateOf(NewsState())
 
     init {
-        //getTopHeadlinesByCountry("")
+        getTopHeadlinesByCountry("fr")
     }
 
     fun getEverything(q: String) {

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -56,50 +57,49 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
             ListOptionsComponent(
                 onClickCountry = {
                     options = Options.COUNTRY
+                    viewModel.getTopHeadlinesByCountry("fr")
                 },
                 onClickBusiness = {
                     options = Options.BUSINESS
+                    viewModel.getTopHeadlinesByCategory("business")
                 },
                 onClickHealth = {
                     options = Options.HEALTH
+                    viewModel.getTopHeadlinesByCategory("health")
                 },
                 onClickScience = {
                     options = Options.SCIENCES
+                    viewModel.getTopHeadlinesByCategory("science")
                 },
                 onClickInternational = {
                     options = Options.INTERNATIONAL
+                    viewModel.getTopHeadlinesByCategory("sports")
                 },
                 onClickSport = {
                     options = Options.SPORTS
+                    viewModel.getTopHeadlinesByCategory("sports")
                 },
                 onClickTechnology = {
                     options = Options.TECHNOLOGY
+                    viewModel.getTopHeadlinesByCategory("technology")
                 },
                 options = options
             )
 
-            LazyColumn {
-                item {
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
-                    ListItem(headlineContent = { Text(text = "Info") })
+            if (state.isLoading) {
+                CircularProgressComponent()
+            } else {
+                if (state.news != null) {
+                    LazyColumn {
+                        items(state.news!!.articles) {
+                            ListItem(
+                                headlineContent = { Text(text = it.title.toString()) }
+                            )
+                        }
+                    }
+
+                } else {
+                    Text(text = state.error!!)
                 }
             }
 
@@ -108,19 +108,6 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
 
 }
 
-@Composable
-fun NewsScreenCompact() {
-
-}
 
 
-//            if (state.isLoading) {
-//                LoadingComponent()
-//            } else {
-//                if (state.news != null) {
-//                    Text(text = state.news!!.articles.size.toString())
-//
-//                } else {
-//                    Text(text = state.error!!)
-//                }
-//            }
+
