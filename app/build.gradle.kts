@@ -68,6 +68,8 @@ dependencies {
     // hilt
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation)
+    implementation(platform(libs.compose.bom))
+    androidTestImplementation(platform(libs.compose.bom))
     kapt(libs.hilt.compiler)
 
     // room db
@@ -83,6 +85,9 @@ dependencies {
 
     // screen size
     implementation(libs.material3.size)
+
+    // icons
+    implementation(libs.material.icons.extended)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

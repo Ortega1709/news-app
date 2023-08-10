@@ -1,13 +1,21 @@
 package com.ortega.newsapp.ui.screens.news
 
+import android.content.Intent
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Newspaper
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -22,17 +30,23 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ortega.newsapp.R
 import com.ortega.newsapp.ui.components.CircularProgressComponent
 import com.ortega.newsapp.ui.components.ListOptionsComponent
+import com.ortega.newsapp.ui.components.NewsItemComponent
+import com.ortega.newsapp.ui.screens.read.ReadActivity
 import com.ortega.newsapp.util.Options
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
+
+    val context = LocalContext.current
 
     var options by rememberSaveable { mutableStateOf(Options.COUNTRY) }
     val state = viewModel.state
@@ -41,11 +55,23 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text(text = stringResource(id = R.string.app_name)) },
-                actions = {  }
+                actions = {
+
+                }
             )
         },
         bottomBar = {
 
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+
+            }) {
+                Icon(
+                    imageVector = Icons.Rounded.Newspaper,
+                    contentDescription = null
+                )
+            }
         }
     ) { paddingValues ->
         Column (
@@ -89,17 +115,10 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
             if (state.isLoading) {
                 CircularProgressComponent()
             } else {
-                if (state.news != null) {
-                    LazyColumn {
-                        items(state.news!!.articles) {
-                            ListItem(
-                                headlineContent = { Text(text = it.title.toString()) }
-                            )
-                        }
+                LazyColumn {
+                    items(state.news!!.articles) {
+                        NewsItemComponent(article = it)
                     }
-
-                } else {
-                    Text(text = state.error!!)
                 }
             }
 

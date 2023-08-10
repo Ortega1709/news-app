@@ -9,6 +9,7 @@ object Constants {
     const val API_KEY: String = "541642464cb846fa8bba10cd8a142302"
 
     const val BASE_URL: String = "https://newsapi.org/"
+    const val API_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss'Z'"
 
 
 }
