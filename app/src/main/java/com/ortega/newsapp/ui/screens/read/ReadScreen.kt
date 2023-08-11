@@ -9,7 +9,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
-fun ReadScreen() {
+fun ReadScreen(url: String) {
 
     val context = LocalContext.current
 
@@ -19,7 +19,7 @@ fun ReadScreen() {
             .apply {
                 webViewClient = WebViewClient()
                 settings.javaScriptEnabled = true
-                loadUrl("https://github.com/Ortega1709")
+                loadUrl(url)
         }
     })
 

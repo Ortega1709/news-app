@@ -10,6 +10,7 @@ object Constants {
 
     const val BASE_URL: String = "https://newsapi.org/"
     const val API_DATE_FORMAT: String = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    const val DEFAULT_FORMAT: String = "yyyy-MM-dd"
 
 
 }

@@ -89,6 +89,9 @@ dependencies {
     // icons
     implementation(libs.material.icons.extended)
 
+    // coil
+    implementation(libs.coil.compose)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

@@ -8,9 +8,15 @@ import com.ortega.newsapp.ui.theme.NewsAppTheme
 class ReadActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val url = intent.getStringExtra("url")
+
         setContent {
+
+
+
             NewsAppTheme {
-                ReadScreen()
+                ReadScreen(url!!)
             }
         }
     }

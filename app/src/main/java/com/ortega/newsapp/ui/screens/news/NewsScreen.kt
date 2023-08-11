@@ -1,8 +1,10 @@
 package com.ortega.newsapp.ui.screens.news
 
 import android.content.Intent
+import android.os.Build
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -36,20 +38,23 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ortega.newsapp.R
 import com.ortega.newsapp.ui.components.CircularProgressComponent
+import com.ortega.newsapp.ui.components.ListNewsComponent
 import com.ortega.newsapp.ui.components.ListOptionsComponent
 import com.ortega.newsapp.ui.components.NewsItemComponent
 import com.ortega.newsapp.ui.screens.read.ReadActivity
 import com.ortega.newsapp.util.Options
 import kotlinx.coroutines.launch
 
+@RequiresApi(Build.VERSION_CODES.S)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
 
     val context = LocalContext.current
+    val state = viewModel.state
 
     var options by rememberSaveable { mutableStateOf(Options.COUNTRY) }
-    val state = viewModel.state
+
 
     Scaffold (
         topBar = {
@@ -63,16 +68,7 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
         bottomBar = {
 
         },
-        floatingActionButton = {
-            FloatingActionButton(onClick = {
-
-            }) {
-                Icon(
-                    imageVector = Icons.Rounded.Newspaper,
-                    contentDescription = null
-                )
-            }
-        }
+        floatingActionButton = {  }
     ) { paddingValues ->
         Column (
             modifier = Modifier
@@ -115,10 +111,10 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
             if (state.isLoading) {
                 CircularProgressComponent()
             } else {
-                LazyColumn {
-                    items(state.news!!.articles) {
-                        NewsItemComponent(article = it)
-                    }
+                if (state.news != null) {
+                    ListNewsComponent(
+                        news = state.news!!
+                    )
                 }
             }
 
